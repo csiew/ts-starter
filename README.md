@@ -1,5 +1,5 @@
 # ts-starter
-Usage:
+## Usage
 ```sh
 ./create.sh <target_dir>
 ```
