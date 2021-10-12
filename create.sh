@@ -27,7 +27,7 @@ if [ -d "$target_path" ]; then
   npm list -g | grep typescript || npm i -g typescript
   npm i -D ts-node ts-node-dev eslint
   npm i express sequelize pg pg-hstore bcrypt
-  npm i -D @types/node @types/validator @types/sequelize @types/bcrypt jsonwebtoken @types/jsonwebtoken
+  npm i -D @types/node @types/validator @types/express @types/sequelize @types/bcrypt jsonwebtoken @types/jsonwebtoken
   
   echo "Copying config files..."
   cp $ts_starter_src/tsconfig.json $target_path_full/tsconfig.json
