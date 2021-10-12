@@ -6,8 +6,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 target_path=$1
-ts_starter_parent=$(pwd)
-ts_starter_src="${ts_starter_parent}/ts-starter"
+ts_starter_src=$(pwd)
 
 echo "ts_starter location: ${ts_starter_src}"
 
@@ -26,8 +25,9 @@ if [ -d "$target_path" ]; then
   echo "Installing Node packages..."
   npm init -y
   npm list -g | grep typescript || npm i -g typescript
-  npm i -D @types/node ts-node ts-node-dev express
-  npm i sequelize pg pg-hstore
+  npm i -D ts-node ts-node-dev eslint
+  npm i express sequelize pg pg-hstore bcrypt
+  npm i -D @types/node @types/validator @types/sequelize @types/bcrypt jsonwebtoken @types/jsonwebtoken
   
   echo "Copying config files..."
   cp $ts_starter_src/tsconfig.json $target_path_full/tsconfig.json
