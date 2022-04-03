@@ -5,7 +5,21 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
-target_path=$1
+target_path=${1:-}
+project_type=${2:-"base"}
+
+case $project_type in
+  api)
+    echo "API project type selected"
+    ;;
+  base)
+    echo "Base project type selected"
+    ;;
+  *)
+    echo "Invalid project type. Must be one of: base, api"
+    ;;
+esac
+
 ts_starter_src=$(pwd)
 
 echo "ts_starter location: ${ts_starter_src}"
@@ -22,11 +36,16 @@ if [ -d "$target_path" ]; then
   target_path_full=$(pwd)
   echo "Target location: ${target_path_full}"
 
-  echo "Installing Node dependencies..."
+  echo "Installing base dev dependencies..."
   npm init -y
   npm list -g | grep typescript || npm i -g typescript
-  npm i express sequelize pg pg-hstore bcrypt dotenv
-  npm i -D ts-node ts-node-dev eslint @types/node @types/validator @types/express @types/sequelize @types/bcrypt jsonwebtoken @types/jsonwebtoken
+  npm i -D ts-node ts-node-dev eslint @types/node @types/validator
+
+  if [ "$project_type" -eq "api" ]; then
+    echo "Installing API dev dependencies..."
+    npm i express sequelize pg pg-hstore bcrypt dotenv
+    npm i -D @types/express @types/sequelize @types/bcrypt jsonwebtoken @types/jsonwebtoken
+  fi
   
   echo "Copying config files..."
   cp $ts_starter_src/tsconfig.json $target_path_full/tsconfig.json
@@ -41,6 +60,8 @@ if [ -d "$target_path" ]; then
 else
   echo "Target directory does not exist: ${target_path}"
 fi
+
+echo "Done"
 
 exit 1
 
