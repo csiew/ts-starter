@@ -1,6 +1,7 @@
 fs = require('fs');
 var name = 'package.json';
 var m = JSON.parse(fs.readFileSync(name).toString());
+m.type = "module";
 m.scripts = {
   "dev": "tsnd --respawn index.ts",
   "migrate": "sequelize db:migrate",

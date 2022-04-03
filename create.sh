@@ -50,7 +50,11 @@ if [ `npm list -g | grep -c typescript` -eq 0 ]; then
   echo "It looks like you do not have TypeScript installed!"
   echo "Please install using: npm i -g typescript"
 fi
-npm i -D ts-node ts-node-dev eslint @types/node @types/validator
+if [ `npm list -g | grep -c ts-node` -eq 0 ]; then
+  echo "It looks like you do not have ts-node installed!"
+  echo "Please install using: npm i -g ts-node"
+fi
+npm i -D ts-node-dev eslint @types/node @types/validator
 
 if [ "$project_type" = "api" ]; then
   echo "Installing API dev dependencies..."
